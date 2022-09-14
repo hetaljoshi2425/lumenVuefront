@@ -8,8 +8,7 @@ import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-
-// createApp(App).mount('#app')
+import './assets/css/style.css'
 
 const app = createApp(App)
 app.use(BootstrapVue3)

@@ -9,18 +9,18 @@
     </div>
     <div class="main-pagination">
       <ul class="pagination">
-        <li class="page-item">
+        <li class="page-item d-flex">
           <button
             type="button"
             class="page-link"
             v-if="page != 1"
             @click="decrementpage"
           >
-           &#8592;
+            &#8592;
           </button>
         </li>
 
-        <li class="page-item">
+        <li class="page-item d-flex">
           <button
             type="button"
             class="page-link"
@@ -64,14 +64,14 @@
           </button>
         </li>
 
-        <li class="page-item">
+        <li class="page-item d-flex">
           <button
             type="button"
             @click="incrementpage"
             v-if="page < totalPages.length"
             class="page-link"
           >
-           &#8594;
+            &#8594;
           </button>
         </li>
       </ul>

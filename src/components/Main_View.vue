@@ -8,7 +8,13 @@
           >
         </b-col>
         <b-card class="mt-3" header="Users">
-          <b-table-simple hover small caption-top responsive>
+          <b-table-simple
+            class="text-nowrap"
+            hover
+            small
+            caption-top
+            responsive
+          >
             <b-thead head-variant="dark">
               <b-tr>
                 <b-th>#</b-th>
@@ -27,10 +33,14 @@
                 :key="index"
               >
                 <b-td>{{ index + 1 }}</b-td>
-                <b-td>{{ user.name }}</b-td>
+                <b-td class="text-capitalize">{{ user.name }}</b-td>
                 <b-td>{{ user.email }}</b-td>
-                <b-td>{{ dateFormat(user.dob, "dd-MM-yyyy") }}</b-td>
-                <b-td>{{ user.color }}</b-td>
+                <b-td>{{ dateTime(user.dob) }}</b-td>
+                <b-td
+                  ><div class="f-color" :style="{ background: user.color }">
+                    {{ user.color }}
+                  </div></b-td
+                >
                 <b-td
                   ><b-button class="m-1" variant="info" @click="editUser(user)"
                     >Edit</b-button
@@ -78,6 +88,7 @@
 import axios from "axios";
 import Pagination from "../components/Pagination.vue";
 import UserModel from "./UserModel.vue";
+import moment from "moment";
 
 export default {
   name: "add-tutorial",
@@ -110,6 +121,9 @@ export default {
   },
 
   methods: {
+    dateTime(value) {
+      return moment(value).format("MMM DD, YYYY");
+    },
     async onSubmit(form) {
       const host = process.env.VUE_APP_BACKEND_URL;
       var name = form.name;
@@ -308,21 +322,6 @@ export default {
         });
     },
 
-    dateFormat(inputDate, format) {
-      const date = new Date(inputDate);
-      const day = date.getDate();
-      const month = date.getMonth() + 1;
-      const year = date.getFullYear();
-      format = format.replace("MM", month.toString().padStart(2, "0"));
-      if (format.indexOf("yyyy") > -1) {
-        format = format.replace("yyyy", year.toString());
-      } else if (format.indexOf("yy") > -1) {
-        format = format.replace("yy", year.toString().substr(2, 2));
-      }
-      format = format.replace("dd", day.toString().padStart(2, "0"));
-      return format;
-    },
-
     incrementpage() {
       this.page = this.page + 1;
     },
@@ -344,47 +343,8 @@ export default {
       if (email == undefined || email == "") {
         return { valid: false, error: "This field is required" };
       }
-      // if (!email.match(/^\w+([.-]?\w+)_@\w+(_[_.-]?\w+)_(.\w{2,3})+$/)) {
-      //   return { valid: false, error: "Please, enter a valid email." };
-      // }
       return { valid: true, error: null };
     },
   },
 };
 </script>
-
-
-<style>
-.main-pagination .pagination {
-  display: flex;
-  justify-content: center;
-}
-
-.main-pagination .pagination button {
-  width: 35px;
-  height: 35px;
-  border: 2px solid #000;
-  line-height: 30px;
-  margin: 0 10px;
-}
-
-.main-pagination .pagination button.page-link-active {
-  background: #000;
-  color: #fff;
-}
-
-.error {
-  color: red;
-}
-
-.text-right {
-  text-align: right;
-}
-
-.customCol {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  height: calc(50% + 19px);
-}
-</style>

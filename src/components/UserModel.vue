@@ -62,6 +62,7 @@
                     readonly=""
                     disabled=""
                     v-model="form.color"
+                    class="mr-2"
                   ></b-form-input>
                   <b-form-input
                     id="input-4"
@@ -119,7 +120,6 @@ export default {
     errors: {},
   },
   watch: {
-    // It listens to the change in prop name
     errors: function () {},
   },
   created() {
@@ -146,7 +146,6 @@ export default {
 </script>
 
 <style scoped>
-/* Override default value of 'none' */
 .modal {
   display: block;
 }
@@ -155,5 +154,8 @@ export default {
 }
 .colorPicker {
   display: flex;
+}
+#input-5 {
+  margin-right: 10px;
 }
 </style>
